@@ -1,13 +1,11 @@
 import React, { Component } from "react";
+import s from "./Header.module.css";
 
 class Header extends Component {
   render() {
     return (
-      <header className="header">
-        <img
-          src="https://pngimg.com/uploads/pokemon/pokemon_PNG129.png"
-          alt=""
-        />
+      <header className={s.header}>
+        <img src="../img/logo.png" alt="logo" />
       </header>
     );
   }

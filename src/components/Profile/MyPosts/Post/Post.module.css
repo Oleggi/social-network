@@ -1,0 +1,11 @@
+.item {
+  color: #333;
+}
+
+.item img {
+  border: 1px solid rgb(71, 190, 117);
+  border-radius: 100px;
+  width: 5rem;
+  height: 5rem;
+}
+

@@ -1,0 +1,35 @@
+.nav {
+  grid-area: n;
+  background-color: #323635;
+  text-align: center;
+}
+
+.item a {
+  font-size: 1.8rem;
+  text-decoration: none;
+  color: #a0a8a6;
+  transition: all .2s ease;
+}
+
+.item {
+  margin-top: 2rem;
+}
+
+
+.item a:hover {
+  color: #f0f5f4;
+}
+
+.item a:active {
+  color: #6bbdb2;
+}
+
+
+.item:first-child {
+  margin-top: 10rem;
+}
+
+.item:last-child {
+  margin-top: 6rem;
+}
+
