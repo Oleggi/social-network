@@ -1,21 +1,22 @@
-import React, { Component } from "react";
+import React from "react";
 import s from "./Profile.module.css";
 import MyPosts from "./MyPosts/MyPosts";
-import Avatar from "./Avatar/Avatar";
-import Description from "./Description/Description";
+import ProfileAvatar from "./ProfileAvatar/ProfileAvatar";
+import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import Background from "./Background/Background";
+import state from "../../Redux/State";
 
-class Profile extends Component {
-  render() {
-    return (
+
+
+const Profile = (props) => {
+      return (
       <div className={s.content}>
         <Background />
-        <Avatar />
-        <Description />
-        <MyPosts />
+        <ProfileAvatar />
+        <ProfileInfo />
+        <MyPosts state={props.state.postsData}/>
       </div>
     );
-  }
 }
 
 export default Profile;

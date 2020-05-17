@@ -1,8 +1,5 @@
-.header img {
-  width: 50%;
-}
-
 .header {
+  color: white;
   grid-area: h;
   background-color: #1bb1df;
 }

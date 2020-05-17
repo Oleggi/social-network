@@ -6,10 +6,11 @@ const Post = (props) => {
     <div className={s.item}>
       <img
         className={s.avatar}
-        src="https://www.vippng.com/png/detail/235-2350325_dicks-out-for-harambe-sample-image-avatar-png.png"
+        src="https://cdn0.iconfinder.com/data/icons/sexy-portrait-girl-avatar-cute-beautiful-young-gir/283/female-138-512.png"
         alt=""
       />
-      {props.message}
+
+      { props.content }
       <div>Likes: { props.likes }  </div>
       </div> 
       

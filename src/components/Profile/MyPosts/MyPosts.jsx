@@ -1,21 +1,23 @@
-import React, { Component } from "react";
+import React from "react";
 import Post from "./Post/Post";
 import NewPost from "./NewPost/NewPost";
+import s from "./MyPosts.module.css";
 
-class MyPosts extends Component {
-  render() {
-    return (
+const MyPosts = (props) => {
+
+  let newPost = props.state.map((p, i) => {
+    return <Post key={i} likes={p.likesCount} content={p.content} />;
+  });
+
+  return (
+    <div className={s.myPosts_wrapper}>
       <div>
-        <div>
-          <NewPost />
-        </div>
-        <div>
-          <Post likes="25" message="I'm just happy!"/>
-          <Post likes="30" message="Heeey, how have you beeen so far, friends?"/>
-        </div>
+        <NewPost />
       </div>
-    );
-  }
-}
+      <h3>My posts:</h3>
+      <div>{newPost}</div>
+    </div>
+  );
+};
 
 export default MyPosts;

@@ -1,9 +1,19 @@
 .item {
   color: #333;
+  padding: 1.5rem;
+  border-top: 1px solid rgb(185, 178, 178);
+}
+
+.item:first-child {
+  margin-top: 1.5rem;
+}
+
+.item:last-child {
+  border-bottom: 1px solid rgb(185, 178, 178);
 }
 
 .item img {
-  border: 1px solid rgb(71, 190, 117);
+  border: 2px solid rgb(67, 201, 235);
   border-radius: 100px;
   width: 5rem;
   height: 5rem;

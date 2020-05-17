@@ -1,0 +1,23 @@
+.dialog_wrapper {
+    display: flex;
+}
+
+.dialogs {
+    flex-grow: 3;
+    border-right: 1px solid rgb(192, 195, 197);
+}
+
+.messages {
+    flex-grow: 10;
+    margin-left: 3rem;
+}
+
+.dialog_item {
+    border-bottom: 1px solid rgb(192, 195, 197);
+}
+
+
+.message_item {
+    padding: 1.5rem;
+}
+
