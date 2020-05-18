@@ -5,7 +5,6 @@ import { NavLink } from "react-router-dom";
 
 const DialogItem = (props) => {
   let avatar = props.avatar;
-  console.log(avatar);
   let path = "/dialogs/" + props.id;
   return (
     <div>

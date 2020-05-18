@@ -10,7 +10,7 @@ const Dialogs = (props) => {
   });
 
   let messagesElements = props.state.messages.map((message, index) => {
-    return <MessageItem key={index} message={message.message} />;
+    return <MessageItem key={index} status={message.status} message={message.message} />;
   });
 
   return (

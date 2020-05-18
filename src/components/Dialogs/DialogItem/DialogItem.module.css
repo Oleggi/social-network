@@ -4,9 +4,19 @@
     flex-wrap: nowrap;
     padding-bottom: 2rem;
     padding-top: 2rem;
-    border-top: .1rem solid rgb(196, 220, 230);
+    border-top: .1rem solid rgb(216, 220, 221);
     width: 100%;
     font-size: 1.8rem;
+    transition: all .2s ease;
+}
+
+.dialog:hover {
+    box-shadow: 0px 0px 15px -10px rgba(0,0,0,0.75);
+}
+
+
+.dialog .active {
+    color: rgb(40, 209, 221);
 }
 
 .dialog img {
