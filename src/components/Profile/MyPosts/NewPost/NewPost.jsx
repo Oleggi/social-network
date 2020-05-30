@@ -1,17 +1,23 @@
-import React, { Component } from "react";
+import React from "react";
 import s from "./NewPost.module.css";
 
-class NewPost extends Component {
-  render() {
+const NewPost = (props) => {
+
+  
+  let onPostChange = (e) => {
+    let text = e.target.value;
+    props.onPostChange(text);
+  }
+
+
     return (
       <div className={s.new_post}>
-        <textarea name="" id="" cols="30" rows="5"></textarea>
+        <textarea onChange={ onPostChange } value={props.inputData} ></textarea>
         <div>
-          <button>Add new post</button>
+          <button onClick={props.addPost}>Add new post</button>
         </div>
       </div>
     );
-  }
 }
 
 export default NewPost;

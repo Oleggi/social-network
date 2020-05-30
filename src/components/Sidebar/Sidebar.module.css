@@ -1,3 +1,109 @@
-.sidebar_wrapper {
-    
+.sidebar {
+    grid-area: s;
+    display: flex;
+    flex-direction: column;
+    margin-left: 1rem;
+    margin-top: 2rem;
+    overflow: scroll;
+    overflow-x: hidden;
+    max-height: 90vh;
 }
+
+
+/* width */
+::-webkit-scrollbar {
+  width: 1rem;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 .5rem grey;
+  border-radius: 1rem;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgb(253, 253, 255);
+  border-radius: 8px;
+}
+
+/* NAVBAR */
+.nav {
+    flex-grow: 6;
+    text-align: center;
+    max-height: 55vh;
+    background-color: rgb(248, 250, 252);
+    border-radius: 1rem;
+    box-shadow: 0px 0px 4px 0px rgba(54, 55, 56, 0.5);
+  }
+  
+  .item a {
+    font-size: 2rem;
+    text-decoration: none;
+    color: rgb(66, 70, 77);
+    transition: all .2s ease;
+  }
+  
+  .item {
+    padding-top: 2rem;
+  }
+  
+  
+  .item a:hover {
+    color: rgb(135, 140, 150);
+  }
+  
+
+  .item a.active {
+      color: rgb(80, 139, 173);
+  }
+
+  .item:first-child {
+    margin-top: 5rem;
+  }
+  
+  .item:last-child {
+    margin-top: 6rem;
+    margin-bottom: 5rem;
+  }
+
+  /* FRIENDS */
+
+  .friends {
+    flex-grow: inherit;
+    color: rgb(66, 70, 77);
+    font-size: 1.8rem;
+    margin-top: 1.5rem;
+    padding: 2rem;
+    background-color: rgb(248, 250, 252);
+    border-radius: 1rem;
+    box-shadow: 0px 0px 4px 0px rgba(56, 57, 59, 0.5);
+}
+
+
+.friends_wrap {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: fit-content;
+    justify-content: space-between;
+}
+
+
+.friend {
+    flex-basis: 33%;
+    margin-top: 2.5rem;
+}
+
+.friend img {
+    width: 5rem;
+    height: 5rem;
+}
+
+.title {
+    font-size: 2.2rem;
+    font-weight: 600;
+    margin-right: 6.5rem;
+}
+  
+  

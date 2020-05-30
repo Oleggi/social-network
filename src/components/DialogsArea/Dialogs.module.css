@@ -1,19 +1,16 @@
 .dialog_wrapper {
     display: flex;
+    margin-left: 5rem;
+    margin-top: 2rem;
 }
 
 .dialogs {
     flex-grow: 3;
-    border-right: 1px solid rgb(192, 195, 197);
+    border-right: 1px solid rgb(201, 206, 211);
 }
 
 .messages {
     flex-grow: 10;
-    margin-left: 3rem;
-}
-
-.dialog_item {
-    border-bottom: 1px solid rgb(192, 195, 197);
 }
 
 

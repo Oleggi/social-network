@@ -1,6 +1,6 @@
 import React from "react";
-import s from "./MessageItem.module.css";
-// import { NavLink } from "react-router-dom";
+import s from "../MessageArea.module.css";
+
 
 const MessageItem = (props) => {
   if (props.status === 'sent') {

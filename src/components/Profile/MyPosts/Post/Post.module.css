@@ -1,15 +1,11 @@
 .item {
   color: #333;
   padding: 1.5rem;
-  border-top: 1px solid rgb(185, 178, 178);
+  border-top: 1px solid rgb(221, 226, 228);
 }
 
 .item:first-child {
   margin-top: 1.5rem;
-}
-
-.item:last-child {
-  border-bottom: 1px solid rgb(185, 178, 178);
 }
 
 .item img {
