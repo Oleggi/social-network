@@ -4,16 +4,15 @@ import DialogContainer from "./Dialogs/DialogContainer";
 import MessageAreaContainer from "./MessageArea/MessageAreaContainer";
 
 const DialogsArea = (props) => {
-  debugger;
   return (
     <div className={s.dialog_wrapper}>
       <div className={s.dialogs}>
         <div className={s.dialog_item}>
-          <DialogContainer store={props.store} />
+          <DialogContainer />
         </div>
       </div>
       <div className={s.messages}>
-        <MessageAreaContainer store={props.store} />
+        <MessageAreaContainer />
       </div>
     </div>
   );

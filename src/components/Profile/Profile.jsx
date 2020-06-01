@@ -12,7 +12,7 @@ const Profile = (props) => {
         <Background />
         <ProfileAvatar />
         <ProfileInfo />
-        <MyPostsContainer store={props.store} />
+        <MyPostsContainer />
       </div>
     );
 }

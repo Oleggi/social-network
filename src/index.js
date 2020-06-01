@@ -5,24 +5,15 @@ import App from "./App";
 import store from "./Redux/redux-store";
 // import * as serviceWorker from './serviceWorker';
 import { BrowserRouter } from "react-router-dom";
-import StoreContext from "./StoreContext";
+import { Provider } from "react-redux";
 
-let rerenderDom = () => {
   ReactDOM.render(
     <React.StrictMode>
       <BrowserRouter>
-        <StoreContext.Provider value={store}>
+        <Provider store={store}>
           <App />
-        </StoreContext.Provider>
+        </Provider>
       </BrowserRouter>
     </React.StrictMode>,
     document.getElementById("root")
   );
-};
-
-rerenderDom(store.getState());
-
-store.subscribe(() => {
-  let state = store.getState();
-  rerenderDom(state);
-});
