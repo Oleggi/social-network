@@ -8,6 +8,7 @@ import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
 import { Route } from "react-router-dom";
 import Sidebar from "./components/Sidebar/Sidebar";
+import UsersContainer from "./components/Users/UsersContainer";
 // import state from "./Redux/State";
 
 const App = (props) => {
@@ -25,6 +26,7 @@ const App = (props) => {
         <Route path="/news" component={News} />
         <Route path="/music" component={Music} />
         <Route path="/settings" component={Settings} />
+        <Route path="/users" render={() => <UsersContainer />}></Route>
       </div>
     </div>
   );
