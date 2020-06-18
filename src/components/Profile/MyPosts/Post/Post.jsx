@@ -4,17 +4,19 @@ import s from "./Post.module.css";
 const Post = (props) => {
   return (
     <div className={s.item}>
-      <img
-        className={s.avatar}
-        src="https://cdn0.iconfinder.com/data/icons/sexy-portrait-girl-avatar-cute-beautiful-young-gir/283/female-138-512.png"
-        alt=""
-      />
+      <div>
+        <img
+          className={s.avatar}
+          src="https://cdn0.iconfinder.com/data/icons/sexy-portrait-girl-avatar-cute-beautiful-young-gir/283/female-138-512.png"
+          alt=""
+        />
+        <span className={s.title}>{props.title}</span>
+      </div>
 
-      { props.content }
-      <div>Like { props.likes }  </div>
+      <div className={s.body}>{props.body}</div>
+      <div>Like 0</div>
       <button>delete</button>
-      </div> 
-      
+    </div>
   );
 };
 

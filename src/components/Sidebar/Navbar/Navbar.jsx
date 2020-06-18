@@ -24,6 +24,7 @@ class Navbar extends Component {
         <div className={s.item} >
           <NavLink activeClassName={s.active} to="/settings">Settings</NavLink>
         </div>
+        
       </nav>
     );
   }

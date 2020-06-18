@@ -1,76 +1,56 @@
 import React from "react";
 import s from "./Users.module.css";
+import photoUrl from "../../assets/images/user.png";
 
 const Users = (props) => {
-  let usersArray = [
-    {
-      name: "Oleg",
-      id: 1,
-      followed: true,
-      status: "I'm great!",
-      userPhoto:
-        "https://www.c7creative.com/wp-content/uploads/2015/05/Lee_C7_Avatar-01.png",
-      location: { country: "Ukraine", city: "Kyiv" },
-    },
-    {
-      name: "John",
-      id: 2,
-      followed: false,
-      status: "Feeling good!",
-      userPhoto:
-        "https://www.c7creative.com/wp-content/uploads/2015/05/Lee_C7_Avatar-01.png",
-      location: { country: "Melburn", city: "Australia" },
-    },
-    {
-      name: "Peter",
-      id: 3,
-      followed: true,
-      status: "Relaxing...",
-      userPhoto:
-        "https://www.c7creative.com/wp-content/uploads/2015/05/Lee_C7_Avatar-01.png",
-      location: { country: "Berlin", city: "Germany" },
-    },
-  ];
-  if (props.users.length === 0) {
-    props.setUsers(usersArray);
-  }
+  let pagesSize = Math.ceil(props.totalUsersCount / props.pageSize);
+    let pages = [];
+    for (let i = 1; i <= pagesSize; i++) {
+      pages.push(i);
+    }
 
-  let users = props.users.map((u) => {
-    return (
-      <div key={u.id} className={s.user_item}>
-        <span>
-          <img src={u.userPhoto} alt="" />
-        </span>
-        <span>{u.name}</span>
-        {u.followed === true ? (
-          <button
-            onClick={() => {
-              props.unfollowUser(u.id);
-            }}
-          >
-            Unfollow
-          </button>
-        ) : (
-          <button
-            onClick={() => {
-              props.followUser(u.id);
-            }}
-          >
-            Follow
-          </button>
-        )}
-        <div className={s.status}>{u.status}</div>
-        <span>
-          <div>{u.location.country}</div>
-          <div>{u.location.city}</div>
-        </span>
-      </div>
-    );
-  });
   return (
-  <div className={s.container}>{users} <button>Show more</button></div>
-  )
-};
-
+    <div className={s.container}>
+      <div className={s.pages_container}>
+      {
+        pages.map((p,i) => {
+        return <div key={i} className={p === props.currentPage?s.active_page:""} onClick={()=>{props.onPageChange(p)}}>{p}</div>
+        })
+      }
+      </div>  
+      {
+      props.users.map(u=><div key={u.id} className={s.user_item}>
+          <span>
+            <img src={photoUrl} alt="" />
+          </span>
+          <span>{u.name}</span>
+          {u.followed === true ? (
+            <button
+              onClick={() => {
+                props.unfollowUser(u.id);
+              }}
+            >
+              Unfollow
+            </button>
+          ) : (
+            <button
+              onClick={() => {
+                props.followUser(u.id);
+              }}
+            >
+              Follow
+            </button>
+          )}
+          <div className={s.status}>{u.status}</div>
+          <span>
+            <div>{u.address.street}</div>
+            <div>{u.address.city}</div>
+          </span>
+        </div>
+      )
+      }
+    </div>
+  );
+}
 
 export default Users;
