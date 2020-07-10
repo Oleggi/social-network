@@ -3,13 +3,16 @@ const UNFOLLOW = "UNFOLLOW";
 const SET_USERS = "SET_USERS";
 const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
 const CHECK_IS_FETCHING = "CHECK_IS_FETCHING"; 
+const SET_TOTAL_USERS_COUNT = "SET_TOTAL_USERS_COUNT"; 
+const TOGGLE_FOLLOWING_PROCESS = "TOGGLE_FOLLOWING_PROCESS"; 
 
 let initialState = {
-  totalUsersCount: 100,
-  pageSize: 20,
+  totalUsersCount: 0,
+  pageSize: 30,
   currentPage: 1,
   users: [],
   isFetching: false,
+  isFollowingActive: []
 };
 
 
@@ -20,7 +23,7 @@ const usersReducer = (state = initialState, action) => {
         ...state,
         users: state.users.map((u) => {
           if (u.id === action.userID) {
-            return { ...u, followed: true };
+            return { ...u, followed: true};
           }
           return u;
         }),
@@ -37,7 +40,7 @@ const usersReducer = (state = initialState, action) => {
       };
 
     case SET_USERS: {
-      return { ...state, users: [...state.users, ...action.users] };
+      return { ...state, users: [...action.users] };
     }
     case SET_CURRENT_PAGE:
       return {
@@ -49,6 +52,16 @@ const usersReducer = (state = initialState, action) => {
          ...state,
            isFetching: action.isFetching
          } 
+      case SET_TOTAL_USERS_COUNT:
+        return {
+          ...state,
+          totalUsersCount: action.totalCount
+        }
+      case TOGGLE_FOLLOWING_PROCESS:
+        return {
+          ...state,
+          isFollowingActive: action.isFetching ? [...state.isFollowingActive, action.userId] : state.isFollowingActive.filter(id => id !== action.userId )
+        }
     default:
       return state;
   }
@@ -82,11 +95,24 @@ export const setCurrentPage = (page) => {
   }
 }
 
+export const setTotalUsersCount = (totalCount) => {
+  return {
+    type: SET_TOTAL_USERS_COUNT,
+    totalCount
+  }
+}
+
 export const checkIsFetching = (fetching) => {
   return {
     type: CHECK_IS_FETCHING,
     isFetching: fetching
   }
 }
+
+export const checkIfFollowingActive = (isFetching, userId) => ({
+  type: TOGGLE_FOLLOWING_PROCESS,
+  isFetching,
+  userId
+})
 
 export default usersReducer;

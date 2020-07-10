@@ -3,7 +3,8 @@ const UPDATE_BODY_TEXT = "UPDATE_BODY_TEXT";
 const UPDATE_TITLE_TEXT = "UPDATE_TITLE_TEXT";
 const SET_POSTS = "SET_POSTS";
 const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
-const CHECK_IS_FETCHING = "CHECK_IS_FETCHING"; 
+const CHECK_IS_FETCHING = "CHECK_IS_FETCHING";
+const SET_PROFILE = "SET_PROFILE";
 
 let initialState = {
   inputDataTile: "",
@@ -11,12 +12,10 @@ let initialState = {
   totalPostsCount: 100,
   pageSize: 20,
   currentPage: 1,
-  posts: [
-    
-  ],
+  profile: null,
+  posts: [],
   isFetching: false,
 };
-
 
 const profileReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -27,38 +26,40 @@ const profileReducer = (state = initialState, action) => {
         body: state.inputDataBody,
       };
 
-        if (state.inputDataBody.length !== 0) {
-          return { ...state,
-              inputDataTitle: "", 
-              inputDataBody: "", 
-              posts: [...state.posts, newPost] 
-            } 
-        } 
-        return state;
+      if (state.inputDataBody.length !== 0) {
+        return {
+          ...state,
+          inputDataTitle: "",
+          inputDataBody: "",
+          posts: [...state.posts, newPost],
+        };
+      }
+      return state;
 
     case UPDATE_BODY_TEXT:
-      return { ...state, 
-        inputDataBody: action.text  
-      }; 
-      case UPDATE_TITLE_TEXT:
-        return { ...state, 
-          inputDataTitle: action.text  
-        };   
+      return { ...state, inputDataBody: action.text };
+    case UPDATE_TITLE_TEXT:
+      return { ...state, inputDataTitle: action.text };
     case SET_POSTS:
       return {
         ...state,
-        posts: [...state.posts, ...action.posts]
-      }
+        posts: [...state.posts, ...action.posts],
+      };
     case SET_CURRENT_PAGE:
       return {
-        ...state, 
-        currentPage: action.page
-      }
-     case CHECK_IS_FETCHING:
-       return {
-         ...state,
-         isFetching: action.isFetching
-       } 
+        ...state,
+        currentPage: action.page,
+      };
+    case CHECK_IS_FETCHING:
+      return {
+        ...state,
+        isFetching: action.isFetching,
+      };
+    case SET_PROFILE:
+      return {
+        ...state,
+        profile: action.profile,
+      };
     default:
       return state;
   }
@@ -77,24 +78,31 @@ export const updateTitleText = (text) => ({
 });
 
 export const setPosts = (posts) => {
- return{
+  return {
     type: SET_POSTS,
-    posts: posts
- }
-}
+    posts: posts,
+  };
+};
 
 export const setCurrentPage = (page) => {
   return {
     type: SET_CURRENT_PAGE,
-    page: page
-  }
-}
+    page: page,
+  };
+};
 
 export const checkIsFetching = (isFetching) => {
   return {
     type: CHECK_IS_FETCHING,
-    isFetching
-  }
-}
+    isFetching,
+  };
+};
+
+export const setProfile = (profile) => {
+  return {
+    type: SET_PROFILE,
+    profile,
+  };
+};
 
 export default profileReducer;

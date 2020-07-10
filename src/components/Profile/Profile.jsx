@@ -1,20 +1,15 @@
 import React from "react";
 import s from "./Profile.module.css";
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
-import ProfileAvatar from "./ProfileAvatar/ProfileAvatar";
-import ProfileInfo from "./ProfileInfo/ProfileInfo";
-import Background from "./Background/Background";
-
+import ProfileInfoСontainer from "./ProfileInfo/ProfileInfoContainer";
 
 const Profile = (props) => {
-      return (
-      <div className={s.content}>
-        <Background />
-        <ProfileAvatar />
-        <ProfileInfo />
-        <MyPostsContainer />
-      </div>
-    );
-}
+  return (
+    <div className={s.content}>
+      <ProfileInfoСontainer />
+      <MyPostsContainer />
+    </div>
+  );
+};
 
 export default Profile;

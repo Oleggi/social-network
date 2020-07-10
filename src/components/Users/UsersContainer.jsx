@@ -7,25 +7,36 @@ import {
   setUsers,
   setCurrentPage,
   checkIsFetching,
+  setTotalUsersCount,
+  checkIfFollowingActive
 } from "../../Redux/users-reducer";
-import * as axios from "axios";
 import Preloader from "../common/preloader/Preloader";
+import { usersAPI } from "../API/api";
 
-class UsersAPI extends React.Component {
+class UsersContainer extends React.Component {
   componentDidMount() {
     this.props.checkIsFetching(true);
-    axios.get("https://jsonplaceholder.typicode.com/users").then((response) => {
-      this.props.setUsers(response.data);
+   usersAPI.getUsers(this.props.pageSize, this.props.currentPage).then((data) => {
+      this.props.setUsers(data.items);
+      this.props.setTotalUsersCount(data.totalCount);
       this.props.checkIsFetching(false);
     });
   }
+
   onPageChange = (p) => {
     this.props.setCurrentPage(p);
+    usersAPI.getUsers(this.props.pageSize, this.props.currentPage).then(data => {
+      this.props.setUsers(data.items);
+  })
+  };
+
+  onClickChange = (id) => {
+    this.props.getUserId(id);
   };
   render() {
     return (
       <>
-        {this.props.isFetching ? <Preloader/> : null}
+        {this.props.isFetching ? <Preloader /> : null}
         <Users
           users={this.props.users}
           totalUsersCount={this.props.totalUsersCount}
@@ -35,6 +46,8 @@ class UsersAPI extends React.Component {
           unfollowUser={this.props.unfollow}
           setCurrentPage={this.props.setCurrentPage}
           onPageChange={this.onPageChange}
+          checkIfFollowingActive={this.props.checkIfFollowingActive}
+          isFollowingActive={this.props.isFollowingActive}
         />
       </>
     );
@@ -48,10 +61,16 @@ let mapStateToProps = (state) => {
     pageSize: state.usersPage.pageSize,
     currentPage: state.usersPage.currentPage,
     isFetching: state.usersPage.isFetching,
+    isFollowingActive: state.usersPage.isFollowingActive
   };
 };
 
-
-const UsersContainer = connect(mapStateToProps,{follow, unfollow, setUsers, setCurrentPage, checkIsFetching})(UsersAPI);
-
-export default UsersContainer;
+export default connect(mapStateToProps, {
+  follow,
+  unfollow,
+  setUsers,
+  setCurrentPage,
+  checkIsFetching,
+  setTotalUsersCount,
+  checkIfFollowingActive
+})(UsersContainer);
