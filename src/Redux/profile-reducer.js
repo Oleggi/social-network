@@ -1,3 +1,4 @@
+import { usersAPI } from "../components/API/api";
 const ADD_POST = "ADD_POST";
 const UPDATE_BODY_TEXT = "UPDATE_BODY_TEXT";
 const UPDATE_TITLE_TEXT = "UPDATE_TITLE_TEXT";
@@ -58,7 +59,7 @@ const profileReducer = (state = initialState, action) => {
     case SET_PROFILE:
       return {
         ...state,
-        profile: action.profile,
+        profile: action.profileData,
       };
     default:
       return state;
@@ -98,11 +99,21 @@ export const checkIsFetching = (isFetching) => {
   };
 };
 
-export const setProfile = (profile) => {
+export const setProfile = (profileData) => {
   return {
     type: SET_PROFILE,
-    profile,
+    profileData,
   };
 };
+
+export const getProfileAPI = (id) => {
+  return (dispatch) => {
+    usersAPI.getProfile(id).then(data => {
+    dispatch(setProfile(data)); 
+  });
+}
+}
+
+
 
 export default profileReducer;
