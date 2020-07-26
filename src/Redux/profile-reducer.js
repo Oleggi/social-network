@@ -1,4 +1,4 @@
-import { usersAPI } from "../components/API/api";
+import { profileAPI } from "../components/API/api";
 const ADD_POST = "ADD_POST";
 const UPDATE_BODY_TEXT = "UPDATE_BODY_TEXT";
 const UPDATE_TITLE_TEXT = "UPDATE_TITLE_TEXT";
@@ -6,6 +6,7 @@ const SET_POSTS = "SET_POSTS";
 const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
 const CHECK_IS_FETCHING = "CHECK_IS_FETCHING";
 const SET_PROFILE = "SET_PROFILE";
+const GET_STATUS = "GET_STATUS";
 
 let initialState = {
   inputDataTile: "",
@@ -14,6 +15,7 @@ let initialState = {
   pageSize: 20,
   currentPage: 1,
   profile: null,
+  status: "",
   posts: [],
   isFetching: false,
 };
@@ -61,6 +63,11 @@ const profileReducer = (state = initialState, action) => {
         ...state,
         profile: action.profileData,
       };
+    case GET_STATUS:
+      return {
+        ...state,
+        status: action.statusData,
+      };
     default:
       return state;
   }
@@ -106,14 +113,37 @@ export const setProfile = (profileData) => {
   };
 };
 
-export const getProfileAPI = (id) => {
+export const getStatus = (statusData) => {
+  return {
+    type: GET_STATUS,
+    statusData,
+  };
+};
+
+export const getProfileData = (id) => {
   return (dispatch) => {
-    usersAPI.getProfile(id).then(data => {
-    dispatch(setProfile(data)); 
-  });
-}
-}
+    profileAPI.getProfile(id).then((data) => {
+      dispatch(setProfile(data));
+    });
+  };
+};
 
+export const getUserStatus = (userId) => {
+  return (dispatch) => {
+    profileAPI.getUserStatus(userId).then((data) => {
+      dispatch(getStatus(data));
+    });
+  };
+};
 
+export const setUserStatus = (statusData) => {
+  return (dispatch) => {
+    profileAPI.setUserStatus(statusData).then((data) => {
+      if (data.resultCode === 0) {
+        dispatch(getStatus(statusData));
+      }
+    });
+  };
+};
 
 export default profileReducer;

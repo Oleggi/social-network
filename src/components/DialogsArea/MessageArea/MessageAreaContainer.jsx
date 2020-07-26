@@ -1,24 +1,19 @@
 import MessageArea from "./MessageArea";
 import {
-  addMessageActionCreator,
-  updateNewMessageTextActionCreator,
+  sendMessage
 } from "../../../Redux/dialogs-reducer";
 import { connect } from "react-redux";
 
 let mapStateToProps = (state) => {
   return {
-    inputDataMessages: state.dialogsPage.inputDataMessages,
     messages: state.dialogsPage.messages,
   };
 };
 
 let mapDispatchToProps = (dispatch) => {
   return {
-    sendNewMessage: () => {
-      dispatch(addMessageActionCreator());
-    },
-    newMessageText: (text) => {
-      dispatch(updateNewMessageTextActionCreator(text));
+    sendNewMessage: (message) => {
+      dispatch(sendMessage(message));
     },
   };
 };

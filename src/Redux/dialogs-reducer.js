@@ -37,7 +37,6 @@ let initialState = {
       photo: avatarSample,
     },
   ],
-  inputDataMessages: "",
   messages: [
     { id: 1, status: "received", message: "Hey, how are you doing?" },
     { id: 2, status: "sent", message: "I'm great, thanks!" },
@@ -54,26 +53,18 @@ const dialogsReducer = (state = initialState, action) => {
       let newMessage = {
         id: 7,
         status: "sent",
-        message: state.inputDataMessages,
+        message: action.message,
       };
-
-      if (state.inputDataMessages.length !== 0) {
           return {
           ...state,
-          inputDataMessages: "",
           messages: [...state.messages, newMessage],
-        }
-      };
-      return state;
-
-    case UPDATE_MESSAGE_TEXT:
-      return { ...state, inputDataMessages: action.message };
+          };
     default:
       return state;
   }
 };
 
-export const addMessageActionCreator = () => ({ type: SEND_MESSAGE });
+export const sendMessage = (message) => ({ type: SEND_MESSAGE, message });
 
 export const updateNewMessageTextActionCreator = (message) => ({
   type: UPDATE_MESSAGE_TEXT,

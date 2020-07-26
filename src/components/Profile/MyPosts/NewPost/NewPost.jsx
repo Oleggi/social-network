@@ -1,29 +1,26 @@
 import React from "react";
 import s from "./NewPost.module.css";
+import { reset, Field, reduxForm } from "redux-form";
 
-const NewPost = (props) => {
+class NewPost extends React.Component {
+  submit = (postData, dispatch) => {
+    console.log(postData);
+    dispatch(reset("newPost"));
+  };
 
-  
-  let onBodyChange = (e) => {
-    let text = e.target.value;
-    props.onBodyChange(text);
-  }
-
-  let onTitleChange = (e) => {
-    let text = e.target.value;
-    props.onTitleChange(text);
-  }
-
-
+  render() {
     return (
-      <div className={s.new_post}>
-        <div><textarea onChange={ onTitleChange } value={props.inputDataTitle} placeholder="Title"></textarea></div>
-        <textarea onChange={ onBodyChange } value={props.inputDataBody} placeholder="Text"></textarea>
+      <form
+        onSubmit={this.props.handleSubmit(this.submit)}
+        className={s.new_post}
+      >
+        <Field name="post" component="textarea" placeholder="Title"></Field>
         <div>
-          <button onClick={props.addPost}>Add new post</button>
+          <button>Add new post</button>
         </div>
-      </div>
+      </form>
     );
+  }
 }
 
-export default NewPost;
+export default reduxForm({form: "newPost"})(NewPost);

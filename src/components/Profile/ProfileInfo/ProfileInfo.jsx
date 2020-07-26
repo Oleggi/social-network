@@ -3,6 +3,7 @@ import s from "./ProfileInfo.module.css";
 import Background from "./Background/Background";
 import ProfileAvatar from "./ProfileAvatar/ProfileAvatar";
 import Preloader from "../../common/preloader/Preloader";
+import ProfileStatus from "./ProfileStatus";
 
 class ProfileInfo extends Component {
   render() {
@@ -15,8 +16,19 @@ class ProfileInfo extends Component {
         <ProfileAvatar profileAvatar={this.props.profile.photos.large} />
         <div className={s.info}>
           <h2>{this.props.profile.fullName}</h2>
+          <ProfileStatus
+            status={this.props.status}
+            setUserStatus={this.props.setUserStatus}
+            userId={this.props.profile.userId}
+          />
           <div>{this.props.profile.aboutMe}</div>
-    {this.props.profile.lookingForAJob ?<div>Looking for a job: {this.props.profile.lookingForAJobDescription}</div> : ""}
+          {this.props.profile.lookingForAJob ? (
+            <div>
+              Looking for a job: {this.props.profile.lookingForAJobDescription}
+            </div>
+          ) : (
+            ""
+          )}
         </div>
       </>
     );
