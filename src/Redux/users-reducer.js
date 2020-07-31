@@ -10,7 +10,7 @@ const TOGGLE_FOLLOWING_PROCESS = "TOGGLE_FOLLOWING_PROCESS";
 let initialState = {
   totalUsersCount: 0,
   pageSize: 30,
-  currentPage: 1,
+  page: 1,
   users: [],
 
   isFetching: false,
@@ -47,7 +47,7 @@ const usersReducer = (state = initialState, action) => {
     case SET_CURRENT_PAGE:
       return {
         ...state,
-        currentPage: action.page
+        page: action.page
       }
      case CHECK_IS_FETCHING:
        return {
@@ -117,7 +117,7 @@ export const checkIfFollowingActive = (isFetching, userId) => ({
   userId
 })
 
-export const getUsers = (pageSize, currentPage) => {
+export const requestUsers = (pageSize, currentPage) => {
   return (dispatch) => {
     dispatch(checkIsFetching(true));
    usersAPI.getUsers(pageSize, currentPage)

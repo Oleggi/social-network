@@ -1,3 +1,10 @@
 .login_container {
     padding: 10rem 50rem;
 }
+
+.commonError {
+    border: .1rem solid red;
+    color: red;
+    padding: 2rem;
+    margin-top: 2rem;
+}

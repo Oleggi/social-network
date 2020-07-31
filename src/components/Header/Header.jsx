@@ -1,34 +1,22 @@
 import React from "react";
 import s from "./Header.module.css";
 import { NavLink } from "react-router-dom";
-import { logOutUser } from "../../Redux/auth-reducer";
-import { connect } from "react-redux";
 
-class Header extends React.Component {
-  logOut = () => {
-    this.props.logOutUser();
-  }
-  render () {
+const Header= (props) => {
     return (
       <header className={s.header}>
         LOGO
-        {this.props.isAuth ? (
-          <NavLink to={"/login"}>
-            <div className={s.login} onClick={this.logOut}>Logout</div>
-          </NavLink>
+        {props.isAuth ? (
+        <div className={s.login}>{props.login} | <button onClick={props.logOutUser}>Exit</button></div>
+           
         ) : (
           <NavLink to={"/login"}>
-            <div className={s.login}>Login</div>
+            <div className={s.login}>Sign In</div>
           </NavLink>
         )}
       </header>
     );
-  }
- 
-};
+  };
 
-let mapStateToProps = (state) => ({
 
-})
-
-export default connect(mapStateToProps, {logOutUser})(Header);
+export default Header;

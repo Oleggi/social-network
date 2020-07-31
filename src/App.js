@@ -10,27 +10,40 @@ import Sidebar from "./components/Sidebar/Sidebar";
 import UsersContainer from "./components/Users/UsersContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import Login from "./components/Login/Login.jsx";
+import { connect } from "react-redux";
+import { initializeApp } from "./Redux/app-reducer";
+import Preloader from "./components/common/preloader/Preloader";
+import { compose } from "redux";
+import { withRouter } from "react-router-dom";
+class App extends React.Component {
+  componentDidMount() {
+    this.props.initializeApp();
+  }
 
-const App = (props) => {
-  return (
-    <div className="app-wrapper">
-      <HeaderContainer />
-      <Sidebar />
-
-      <div className="app-wrapper-content">
-        <Route
-          path="/dialogs"
-          render={() => <DialogsAreaContainer />}
-        />
-        <Route path="/profile/:userId?" render={() => <Profile />} />
-        <Route path="/news" component={News} />
-        <Route path="/music" component={Music} />
-        <Route path="/settings" component={Settings} />
-        <Route path="/users" render={() => <UsersContainer />}></Route>
-        <Route path="/login" render={() => <Login />}></Route>
+  render() {
+    if (!this.props.authSucced) {
+      return <Preloader />;
+    }
+    return (
+      <div className="app-wrapper">
+        <HeaderContainer />
+        <Sidebar />
+        <div className="app-wrapper-content">
+          <Route path="/dialogs" render={() => <DialogsAreaContainer />} />
+          <Route path="/profile/:userId?" render={() => <Profile />} />
+          <Route path="/news" component={News} />
+          <Route path="/music" component={Music} />
+          <Route path="/settings" component={Settings} />
+          <Route path="/users" render={() => <UsersContainer />}></Route>
+          <Route path="/login" render={() => <Login />}></Route>
+        </div>
       </div>
-    </div>
-  );
-};
+    );
+  }
+}
 
-export default App;
+let mapStateToProps = (state) => ({
+  authSucced: state.app.authSucced,
+});
+
+export default compose(withRouter, connect(mapStateToProps, { initializeApp }))(App);

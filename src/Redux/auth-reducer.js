@@ -1,13 +1,14 @@
 import { authAPI } from "../components/API/api";
+import { stopSubmit } from "redux-form";
 const SET_AUTH_DATA = "SET_AUTH_DATA";
 const SET_LOGIN_DATA = "SET_LOGIN_DATA";
-const DELETE_LOGIN_DATA = "DELETE_LOGIN_DATA";
 
 let initialState = {
-  userId: null,
+  id: null,
   email: null,
   login: null,
   isAuth: false,
+  captcha: null
 };
 
 const authReducer = (state = initialState, action) => {
@@ -15,29 +16,18 @@ const authReducer = (state = initialState, action) => {
     case SET_AUTH_DATA:
       return {
         ...state,
-        ...action.data,
-        isAuth: true,
+        ...action.payload,
       };
-    case SET_LOGIN_DATA:
-      return {
-        ...state,
-        userId: action.userId,
-        isAuth: true
-      };
-      case DELETE_LOGIN_DATA:
-      return {
-        ...state,
-        isAuth: false
-      }
     default:
       return state;
   }
 };
 
-export const setAuthUserData = (id, email, login) => {
+
+export const setAuthUserData = (id, email, login, isAuth) => {
   return {
     type: SET_AUTH_DATA,
-    data: { id, email, login },
+    payload: { id, email, login, isAuth },
   };
 };
 
@@ -48,17 +38,12 @@ export const setLoginUserData = (userId) => {
   };
 };
 
-export const deleteLoginUserData = (userId) => {
-  return {
-    type: DELETE_LOGIN_DATA,
-  };
-};
 
-export const setAuthMeData = () => (dispatch) => {
-  authAPI.getAuthUserData().then((data) => {
+export const setAuthMeData = () => (dispatch, isAuth) => {
+  return authAPI.getAuthUserData().then((data) => {
     if (data.resultCode === 0) {
       let { id, email, login } = data.data;
-      dispatch(setAuthUserData(id, email, login));
+      dispatch(setAuthUserData(id, email, login, true));
     }
   });
 };
@@ -66,18 +51,20 @@ export const setAuthMeData = () => (dispatch) => {
 export const logInUser = (email, password, rememberMe, captcha) => (dispatch) => {
   authAPI.login(email, password, rememberMe, captcha).then((response) => {
     if (response.resultCode === 0) {
-      dispatch(setLoginUserData(response.data.userId));
+      dispatch(setAuthMeData());
+    } 
+    else {
+      let message = response.data.messages.length > 0?response.data.messages[0]:"Something went wrong";
+      dispatch(stopSubmit("login", {_error: message}));
     }
   });
 };
 
 export const logOutUser = () => (dispatch) => {
   authAPI.logout().then((response) => {
-    console.log(response);
     if (response.resultCode === 0) {
-      dispatch(deleteLoginUserData());
+      setAuthMeData(null, null, null, false);
     }
   });
 };
-
 export default authReducer;

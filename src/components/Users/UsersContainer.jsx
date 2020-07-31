@@ -6,17 +6,17 @@ import {
   unfollow,
   checkIsFetching,
   checkIfFollowingActive,
-  getUsers
+  requestUsers
 } from "../../Redux/users-reducer";
 import Preloader from "../common/preloader/Preloader";
-
+import { getUsers, getTotalUsersCount, getPageSize, getPage, getIsFetching, getIsFollowingActive } from "../../Redux/users-selector";
 class UsersContainer extends React.Component {
   componentDidMount() {
-    this.props.getUsers(this.props.pageSize, this.props.currentPage)
+    this.props.requestUsers(this.props.pageSize, this.props.currentPage)
   }
 
   onPageChange = (p) => {
-    this.props.getUsers(this.props.pageSize, p)
+    this.props.requestUsers(this.props.pageSize, p)
   };
 
   render() {
@@ -41,12 +41,12 @@ class UsersContainer extends React.Component {
 
 let mapStateToProps = (state) => {
   return {
-    users: state.usersPage.users,
-    totalUsersCount: state.usersPage.totalUsersCount,
-    pageSize: state.usersPage.pageSize,
-    currentPage: state.usersPage.currentPage,
-    isFetching: state.usersPage.isFetching,
-    isFollowingActive: state.usersPage.isFollowingActive
+    users: getUsers(state),
+    totalUsersCount: getTotalUsersCount(state),
+    pageSize: getPageSize(state),
+    currentPage: getPage(state),
+    isFetching: getIsFetching(state),
+    isFollowingActive: getIsFollowingActive(state)
   };
 };
 
@@ -54,6 +54,6 @@ export default connect(mapStateToProps, {
   follow,
   unfollow,
   checkIsFetching,
-  getUsers,
+  requestUsers,
   checkIfFollowingActive
 })(UsersContainer);
