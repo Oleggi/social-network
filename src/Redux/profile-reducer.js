@@ -1,5 +1,6 @@
 import { profileAPI } from "../components/API/api";
 const ADD_POST = "ADD_POST";
+const DELETE_POST = "DELETE_POST";
 const UPDATE_BODY_TEXT = "UPDATE_BODY_TEXT";
 const UPDATE_TITLE_TEXT = "UPDATE_TITLE_TEXT";
 const SET_POSTS = "SET_POSTS";
@@ -9,14 +10,27 @@ const SET_PROFILE = "SET_PROFILE";
 const GET_STATUS = "GET_STATUS";
 
 let initialState = {
-  inputDataTile: "",
-  inputDataBody: "",
-  totalPostsCount: 100,
-  pageSize: 20,
+  totalPostsCount: 20,
+  pageSize: 5,
   currentPage: 1,
   profile: null,
   status: "",
-  posts: [],
+  posts: [
+    {id: 1,
+     body: "Be yourself everyone else is already taken. ― Oscar Wilde",
+     likes: 75 
+    },
+    {id: 2,
+      body: `Be who you are and say what you feel, 
+             because those who mind don't matter, and those who matter don't mind.― Bernard M. Baruch`,
+      likes: 66 
+     },
+     {id: 3,
+      body: `A room without books is like a body without a soul.”
+            ― Marcus Tullius Cicero`,
+      likes: 102 
+     }
+  ],
   isFetching: false,
 };
 
@@ -24,25 +38,19 @@ const profileReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_POST:
       let newPost = {
-        id: 200,
-        title: state.inputDataTitle,
-        body: state.inputDataBody,
+        id: state.posts.length + 1,
+        body: action.payload,
+        likes: 0
       };
-
-      if (state.inputDataBody.length !== 0) {
         return {
           ...state,
-          inputDataTitle: "",
-          inputDataBody: "",
           posts: [...state.posts, newPost],
         };
-      }
-      return state;
-
-    case UPDATE_BODY_TEXT:
-      return { ...state, inputDataBody: action.text };
-    case UPDATE_TITLE_TEXT:
-      return { ...state, inputDataTitle: action.text };
+      case DELETE_POST:
+        return {
+          ...state,
+          posts: [...state.posts.filter(p => p.id !== action.id)],
+        };
     case SET_POSTS:
       return {
         ...state,
@@ -73,7 +81,9 @@ const profileReducer = (state = initialState, action) => {
   }
 };
 
-export const addPost = () => ({ type: ADD_POST });
+export const addPost = (payload) => ({ type: ADD_POST, payload });
+
+export const deletePost = (id) => ({ type: DELETE_POST, id });
 
 export const updateBodyText = (text) => ({
   type: UPDATE_BODY_TEXT,

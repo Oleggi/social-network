@@ -13,11 +13,7 @@ const MyPosts = (props) => {
     <div className={s.myPosts_wrapper}>
       <div>
         <NewPost
-          inputDataTitle={props.inputDataTitle}
-          inputDataBody={props.inputDataBody}
           addPost={props.addPost}
-          onBodyChange={props.onBodyChange}
-          onTitleChange={props.onTitleChange}
         />
       </div>
       <h3>My posts:</h3>
@@ -36,7 +32,7 @@ const MyPosts = (props) => {
       </div>
       <div>
         {props.posts.map((p, i) => {
-          return <Post key={p.id} title={p.title} body={p.body} />;
+          return <Post deletePost={props.deletePost} key={p.id} likes={p.likes} body={p.body} />;
         })}
       </div>
     </div>

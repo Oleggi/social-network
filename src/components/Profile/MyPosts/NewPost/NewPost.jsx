@@ -7,7 +7,7 @@ import { required, maxLength } from "../../../../Utils/formValidators";
 const maxLength50 = maxLength(50);
 class NewPost extends React.Component {
   submit = (postData, dispatch) => {
-    console.log(postData);
+    this.props.addPost(postData.post);
     dispatch(reset("newPost"));
   };
 
