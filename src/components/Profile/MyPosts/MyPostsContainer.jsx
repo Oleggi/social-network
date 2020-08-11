@@ -9,21 +9,9 @@ import {
   checkIsFetching,
 } from "../../../Redux/profile-reducer";
 import { connect } from "react-redux";
-// import Axios from "axios";
 
 class MyPostsAPI extends React.Component {
-  // componentDidMount() {
-  //   this.props.checkIsFetching(true);
-  //   Axios.get("https://jsonplaceholder.typicode.com/posts").then((response) => {
-  //     this.props.setPosts(response.data);
-  //     debugger;
-  //     this.props.checkIsFetching(false);
-  //   });
-  // }
 
-  onPageChange = (p) => {
-    this.props.setCurrentPage(p);
-  };
   render() {
     return (
       <>

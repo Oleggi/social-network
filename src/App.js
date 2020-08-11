@@ -15,6 +15,9 @@ import { initializeApp } from "./Redux/app-reducer";
 import Preloader from "./components/common/preloader/Preloader";
 import { compose } from "redux";
 import { withRouter } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
+import { Provider } from "react-redux";
+import store from "./Redux/redux-store";
 class App extends React.Component {
   componentDidMount() {
     this.props.initializeApp();
@@ -46,4 +49,21 @@ let mapStateToProps = (state) => ({
   authSucced: state.app.authSucced,
 });
 
-export default compose(withRouter, connect(mapStateToProps, { initializeApp }))(App);
+let AppContainer = compose(
+  withRouter,
+  connect(mapStateToProps, { initializeApp })
+)(App);
+
+const MainApp = () => {
+  return (
+    <BrowserRouter>
+      <Provider store={store}>
+        <AppContainer />
+      </Provider>
+    </BrowserRouter>
+  )
+};
+
+export default MainApp;
+
+

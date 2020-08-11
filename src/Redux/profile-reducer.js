@@ -1,13 +1,13 @@
 import { profileAPI } from "../components/API/api";
-const ADD_POST = "ADD_POST";
-const DELETE_POST = "DELETE_POST";
-const UPDATE_BODY_TEXT = "UPDATE_BODY_TEXT";
-const UPDATE_TITLE_TEXT = "UPDATE_TITLE_TEXT";
-const SET_POSTS = "SET_POSTS";
-const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
-const CHECK_IS_FETCHING = "CHECK_IS_FETCHING";
-const SET_PROFILE = "SET_PROFILE";
-const GET_STATUS = "GET_STATUS";
+const ADD_POST = "social-network/profile/ADD_POST";
+const DELETE_POST = "social-network/profile/DELETE_POST";
+const UPDATE_BODY_TEXT = "social-network/profile/UPDATE_BODY_TEXT";
+const UPDATE_TITLE_TEXT = "social-network/profile/UPDATE_TITLE_TEXT";
+const SET_POSTS = "social-network/profile/SET_POSTS";
+const SET_CURRENT_PAGE = "social-network/profile/SET_CURRENT_PAGE";
+const CHECK_IS_FETCHING = "social-network/profile/CHECK_IS_FETCHING";
+const SET_PROFILE = "social-network/profile/SET_PROFILE";
+const GET_STATUS = "social-network/profile/GET_STATUS";
 
 let initialState = {
   totalPostsCount: 20,
@@ -131,28 +131,25 @@ export const getStatus = (statusData) => {
 };
 
 export const getProfileData = (id) => {
-  return (dispatch) => {
-    profileAPI.getProfile(id).then((data) => {
+  return async (dispatch) => {
+    const data = await profileAPI.getProfile(id);
       dispatch(setProfile(data));
-    });
   };
 };
 
 export const getUserStatus = (userId) => {
-  return (dispatch) => {
-    profileAPI.getUserStatus(userId).then((data) => {
+  return async (dispatch) => {
+    const data = await profileAPI.getUserStatus(userId);
       dispatch(getStatus(data));
-    });
   };
 };
 
 export const setUserStatus = (statusData) => {
-  return (dispatch) => {
-    profileAPI.setUserStatus(statusData).then((data) => {
+  return async (dispatch) => {
+    const data = await profileAPI.setUserStatus(statusData);
       if (data.resultCode === 0) {
         dispatch(getStatus(statusData));
       }
-    });
   };
 };
 

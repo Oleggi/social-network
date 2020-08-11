@@ -1,5 +1,5 @@
-const SEND_MESSAGE = "SEND_MESSAGE";
-const UPDATE_MESSAGE_TEXT = "UPDATE_MESSAGE_TEXT";
+const SEND_MESSAGE = "social-network/dialogs/SEND_MESSAGE";
+const UPDATE_MESSAGE_TEXT = "social-network/dialogs/UPDATE_MESSAGE_TEXT";
 
 let avatarSample =
   "https://www.c7creative.com/wp-content/uploads/2015/05/Lee_C7_Avatar-01.png";

@@ -1,0 +1,16 @@
+.pages_wrapper div {
+    display: inline-block;
+    padding: .5rem;
+    margin: .5rem;
+    transition: all .2s ease;
+}
+
+.pages_wrapper div:hover {
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.active_page{
+    text-decoration: underline;
+    font-weight: 600;
+}

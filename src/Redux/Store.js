@@ -1,3 +1,5 @@
+//Presentational state, it shows how everything works under the hood
+
 import profileReducer from "./profile-reducer";
 import dialogsReducer from "./dialogs-reducer";
 import sidebarReducer from "./sidebar-reducer";

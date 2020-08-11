@@ -1,11 +1,12 @@
+import { updateObjInArray } from "../Utils/objMapHelper";
 import { usersAPI, followAPI } from "../components/API/api"
-const FOLLOW = "FOLLOW";
-const UNFOLLOW = "UNFOLLOW";
-const SET_USERS = "SET_USERS";
-const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
-const CHECK_IS_FETCHING = "CHECK_IS_FETCHING"; 
-const SET_TOTAL_USERS_COUNT = "SET_TOTAL_USERS_COUNT"; 
-const TOGGLE_FOLLOWING_PROCESS = "TOGGLE_FOLLOWING_PROCESS"; 
+const FOLLOW = "social-network/users/FOLLOW";
+const UNFOLLOW = "social-network/users/UNFOLLOW";
+const SET_USERS = "social-network/users/SET_USERS";
+const SET_CURRENT_PAGE = "social-network/users/SET_CURRENT_PAGE";
+const CHECK_IS_FETCHING = "social-network/users/CHECK_IS_FETCHING"; 
+const SET_TOTAL_USERS_COUNT = "social-network/users/SET_TOTAL_USERS_COUNT"; 
+const TOGGLE_FOLLOWING_PROCESS = "social-network/users/TOGGLE_FOLLOWING_PROCESS"; 
 
 let initialState = {
   totalUsersCount: 0,
@@ -23,22 +24,12 @@ const usersReducer = (state = initialState, action) => {
     case FOLLOW:
       return {
         ...state,
-        users: state.users.map((u) => {
-          if (u.id === action.userID) {
-            return { ...u, followed: true};
-          }
-          return u;
-        }),
+        users: updateObjInArray(state.users, action.userID, "id", {followed: true})
       };
     case UNFOLLOW:
       return {
         ...state,
-        users: state.users.map((u) => {
-          if (u.id === action.userID) {
-            return { ...u, followed: false };
-          }
-          return u;
-        }),
+        users: updateObjInArray(state.users, action.userID, "id", {followed: false})
       };
 
     case SET_USERS: {
@@ -118,40 +109,38 @@ export const checkIfFollowingActive = (isFetching, userId) => ({
 })
 
 export const requestUsers = (pageSize, currentPage) => {
-  return (dispatch) => {
+  return async (dispatch) => {
     dispatch(checkIsFetching(true));
-   usersAPI.getUsers(pageSize, currentPage)
-      .then((data) => {
+   const data = await usersAPI.getUsers(pageSize, currentPage)
       dispatch(setUsers(data.items));
       dispatch(setTotalUsersCount(data.totalCount));
       dispatch(checkIsFetching(false));
       dispatch(setCurrentPage(currentPage));
-    });
   }
 }
 
+const followUnfollowUser = async (dispatch, id, apiMethod, actionCreator ) => {
+    dispatch(checkIfFollowingActive(true, id)); 
+     const data = await apiMethod(id);
+       if (data.resultCode === 0) {
+          dispatch(actionCreator(id));
+       }
+       dispatch(checkIfFollowingActive(false, id));
+   }
+
 export const follow = (id) => {
-  return (dispatch) => {
-   dispatch(checkIfFollowingActive(true, id)); 
-    followAPI.followUser(id).then((data) => {
-      if (data.resultCode === 0) {
-         dispatch(followUser(id));
-      }
-      dispatch(checkIfFollowingActive(false, id))
-    });
+  return async (dispatch) => {
+    const apiMethod = followAPI.followUser.bind(followAPI);
+    followUnfollowUser(dispatch, id, apiMethod, followUser);
   }
+
 }
 
 export const unfollow = (id) => {
-  return (dispatch) => {
-   dispatch(checkIfFollowingActive(true, id)); 
-    followAPI.unfollowUser(id).then((data) => {
-      if (data.resultCode === 0) {
-        dispatch(unfollowUser(id));
-      }
-      dispatch(checkIfFollowingActive(false, id));
-    });
-  }
+  return async (dispatch) => {
+    const apiMethod = followAPI.unfollowUser.bind(followAPI);
+    followUnfollowUser(dispatch, id, apiMethod, unfollowUser);
+  } 
 }
 
 
