@@ -9,7 +9,7 @@ import {
   requestUsers
 } from "../../Redux/users-reducer";
 import Preloader from "../common/preloader/Preloader";
-import { getUsers, getTotalUsersCount, getPageSize, getPage, getIsFetching, getIsFollowingActive } from "../../Redux/users-selector";
+import { getUsers, getTotalUsersCount, getPageSize, getPage, getIsFetching, getIsFollowingActive, getPortionSize } from "../../Redux/users-selector";
 class UsersContainer extends React.Component {
   componentDidMount() {
     this.props.requestUsers(this.props.pageSize, this.props.currentPage)
@@ -33,6 +33,7 @@ class UsersContainer extends React.Component {
           onPageChange={this.onPageChange}
           checkIfFollowingActive={this.props.checkIfFollowingActive}
           isFollowingActive={this.props.isFollowingActive}
+          portionSize={this.props.portionSize}
         />
       </>
     );
@@ -46,7 +47,8 @@ let mapStateToProps = (state) => {
     pageSize: getPageSize(state),
     currentPage: getPage(state),
     isFetching: getIsFetching(state),
-    isFollowingActive: getIsFollowingActive(state)
+    isFollowingActive: getIsFollowingActive(state),
+    portionSize: getPortionSize(state)
   };
 };
 

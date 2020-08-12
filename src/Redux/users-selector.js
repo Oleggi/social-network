@@ -22,3 +22,8 @@ export let getIsFetching = (state) => {
 export let getIsFollowingActive = (state) => {
     return state.usersPage.isFollowingActive;
 }
+
+
+export let getPortionSize = (state) => {
+    return state.usersPage.portionSize;
+}

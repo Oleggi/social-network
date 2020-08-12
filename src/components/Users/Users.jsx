@@ -1,32 +1,18 @@
 import React from "react";
 import s from "./Users.module.css";
 import { NavLink } from "react-router-dom";
+import Paginator from "../common/Paginator/Paginator";
 
 const Users = (props) => {
-  let amountOfPages = Math.ceil(props.totalUsersCount / props.pageSize);
-  let pages = [];
-  for (let i = 1; i <= amountOfPages; i++) {
-    pages.push(i);
-  }
   return (
     <div className={s.container}>
-      <div className={s.pages_container}>
-        {pages.map((p, i) => {
-          return (
-            <div
-              key={i}
-              className={p === props.currentPage ? s.active_page : ""}
-              onClick={() => {
-                props.onPageChange(p);
-              }}
-            >
-              {p}
-            </div>
-          );
-        })}
-        <span>{">>"}</span>
-      </div>
-
+      <Paginator 
+        onPageChange={props.onPageChange} 
+        totalItemsCount={props.totalUsersCount} 
+        pageSize={props.pageSize} 
+        currentPage={props.currentPage} 
+        portionSize={props.portionSize}
+        />
       {props.users.map((u) => (
         <div key={u.id} className={s.user_item}>
           <NavLink to={"/profile/" + u.id}>
@@ -60,6 +46,6 @@ const Users = (props) => {
       ))}
     </div>
   );
-};
+}
 
 export default Users;

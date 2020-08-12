@@ -32,3 +32,5 @@ connect(mapStateToProps),
 withAuthRedirect
 )
 (DialogsAreaContainer);
+
+

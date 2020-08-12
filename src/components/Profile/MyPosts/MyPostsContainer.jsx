@@ -12,6 +12,10 @@ import { connect } from "react-redux";
 
 class MyPostsAPI extends React.Component {
 
+  onPageChange = (p) => {
+    this.props.setCurrentPage(p);
+  };
+
   render() {
     return (
       <>

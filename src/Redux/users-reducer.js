@@ -13,7 +13,7 @@ let initialState = {
   pageSize: 30,
   page: 1,
   users: [],
-
+  portionSize: 7,
   isFetching: false,
   isFollowingActive: []
 };
