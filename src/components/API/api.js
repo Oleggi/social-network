@@ -47,11 +47,6 @@ export const authAPI = {
       return response;
     })
   },
-  getCaptchaUrl() {
-    return instance.get("security/get-captcha-url").then(response => {
-      console.log(response.data);
-    })
-  }
 };
 
 export const profileAPI = {
@@ -73,4 +68,28 @@ export const profileAPI = {
         return response.data;
       });
   },
+  setPhoto(photoFile) {
+    const formData = new FormData();
+  formData.append("image", photoFile);
+    return instance.put("profile/photo", formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    }).then(response => {
+      return response;
+    })
+  },
+  setUserInfo(userData) {
+    return instance.put("profile", userData).then(response => {
+      return response;
+    })
+  }
+};
+
+export const secureAPI = {
+  getCaptchaUrl() {
+    return instance.get("security/get-captcha-url").then(response => {
+      return response;
+    })
+  }
 };

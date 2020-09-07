@@ -1,6 +1,5 @@
 let avatar = "https://www.c7creative.com/wp-content/uploads/2015/05/Lee_C7_Avatar-01.png";
 
-
 let initialState = {
   friends: [
     {
@@ -53,7 +52,7 @@ let initialState = {
 }
 
 const sidebarReducer = (state = initialState, action) => {
-  return state;
+        return state;
 };
 
 export default sidebarReducer;

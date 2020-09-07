@@ -43,7 +43,6 @@ render () {
           value={this.state.statusData}
         />
         }
-        <button>Save</button>
       </div>
     </div>
   );

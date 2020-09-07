@@ -1,38 +1,49 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import s from "./ProfileInfo.module.css";
 import Background from "./Background/Background";
 import ProfileAvatar from "./ProfileAvatar/ProfileAvatar";
 import Preloader from "../../common/preloader/Preloader";
 import ProfileStatusForTesting from "./ProfileStatusForTesting";
+import ProfileInfoData from "./ProfileInfoData";
+import ProfileDataForm from "./ProfileDataForm"
 
-class ProfileInfo extends Component {
-  render() {
-    if (!this.props.profile) {
+const ProfileInfo = (props) => {
+  let [editMode, setEditMode] = useState(false);
+
+    if (!props.profile) {
       return <Preloader />;
     }
+    const onSubmit = (formData) => {
+      props.setProfileInfo(formData);
+      if (props.isProfileInfoUpdating === "success") {
+        setEditMode(false);
+      } 
+        }
+
+
     return (
       <>
         <Background />
-        <ProfileAvatar profileAvatar={this.props.profile.photos.large} />
+        <ProfileAvatar profileAvatar={props.profile.photos.large} />
+        {props.isOwner && <input onChange={props.onPhotoSelectedChange} type="file"/>} 
+        {props.isProfileInfoUpdating === "fetching"  ? <div><Preloader /></div> : 
         <div className={s.info}>
-          <h2>{this.props.profile.fullName}</h2>
-          <ProfileStatusForTesting
-            status={this.props.status}
-            setUserStatus={this.props.setUserStatus}
-            userId={this.props.profile.userId}
-          />
-          <div>{this.props.profile.aboutMe}</div>
-          {this.props.profile.lookingForAJob ? (
-            <div>
-              Looking for a job: {this.props.profile.lookingForAJobDescription}
-            </div>
-          ) : (
-            ""
-          )}
+        <ProfileStatusForTesting
+          status={props.status}
+          setUserStatus={props.setUserStatus}
+          userId={props.profile.userId}
+        />
+        {editMode? <ProfileDataForm editModeOff={() => {setEditMode(false)}} profile={props.profile} initialValues={props.profile} onSubmit={onSubmit}/> : <ProfileInfoData toEditMode={() => {setEditMode(true)}} isOwner={props.isOwner} profile={props.profile}/>} 
         </div>
+        }
       </>
     );
   }
+
+export const Contact = ({title, description}) => {
+  return (
+  <div><b>{title}: </b> {description}</div>
+  )
 }
 
 export default ProfileInfo;

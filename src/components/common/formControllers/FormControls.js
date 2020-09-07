@@ -23,3 +23,17 @@ export const Input = ({input, meta, ...props}) => {
     )
 } 
 
+// Custom function in order to prevent duplicating code
+
+// export const createField = ({placeholder, name, validate, component, props={}, text}) => {
+//     return (
+//         <div>
+//         <Field 
+//             placeholder={placeholder}
+//             name={name}
+//             validate={validate}
+//             component={component}
+//         />{text}
+//         </div>
+//     )
+// }

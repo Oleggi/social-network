@@ -1,19 +1,14 @@
 import React from "react";
 import s from "./Header.module.css";
-import { NavLink } from "react-router-dom";
+import LogoutContainer from "../Logout/LogoutContainer";
 
 const Header= (props) => {
     return (
       <header className={s.header}>
         LOGO
-        {props.isAuth ? (
-        <div className={s.login}>{props.login} | <button onClick={props.logOutUser}>Exit</button></div>
-           
-        ) : (
-          <NavLink to={"/login"}>
-            <div className={s.login}>Sign In</div>
-          </NavLink>
-        )}
+        <div>
+         <LogoutContainer />
+        </div>
       </header>
     );
   };

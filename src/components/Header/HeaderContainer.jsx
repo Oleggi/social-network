@@ -6,13 +6,13 @@ import { logOutUser } from "../../Redux/auth-reducer";
 
 class HeaderContainer extends Component {
   render() {
-    return <Header login={this.props.login} logOutUser={this.props.logOutUser} isAuth={this.props.isAuth}/>;
+    return <Header />;
   }
 }
-const mapStateToProps = (state) => ({
-    login: state.auth.login,
-    isAuth: state.auth.isAuth
-});
+// const mapStateToProps = (state) => ({
+//     login: state.auth.login,
+//     isAuth: state.auth.isAuth
+// });
 
 
-export default connect(mapStateToProps, { logOutUser })(HeaderContainer);
+export default connect(null, { logOutUser })(HeaderContainer);

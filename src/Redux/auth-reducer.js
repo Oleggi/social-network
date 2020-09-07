@@ -1,7 +1,8 @@
-import { authAPI } from "../components/API/api";
+import { authAPI, secureAPI } from "../components/API/api";
 import { stopSubmit } from "redux-form";
 const SET_AUTH_DATA = "social-network/auth/SET_AUTH_DATA";
 const SET_LOGIN_DATA = "social-network/auth/SET_LOGIN_DATA";
+const GET_CAPTCHA_URL_SUCCESS = "social-network/GET_CAPTCHA_URL_SUCCESS";
 
 let initialState = {
   id: null,
@@ -18,9 +19,15 @@ const authReducer = (state = initialState, action) => {
         ...state,
         ...action.payload,
       };
+      case GET_CAPTCHA_URL_SUCCESS:
+        return {
+          ...state,
+          ...action.payload,
+        };
     default:
       return state;
   }
+
 };
 
 export const setAuthUserData = (id, email, login, isAuth) => {
@@ -37,6 +44,13 @@ export const setLoginUserData = (userId) => {
   };
 };
 
+const getCaptchaUrlSuccess = (captcha) => {
+  return {
+    type: GET_CAPTCHA_URL_SUCCESS,
+    payload: { captcha }
+  }
+}
+
 export const setAuthMeData = () => async (dispatch, isAuth) => {
   const data = await authAPI.getAuthUserData();
   if (data.resultCode === 0) {
@@ -49,9 +63,12 @@ export const logInUser = (email, password, rememberMe, captcha) => async (
   dispatch
 ) => {
   const response = await authAPI.login(email, password, rememberMe, captcha);
-    if (response.resultCode === 0) {
+    if (response.data.resultCode === 0) {
       dispatch(setAuthMeData());
     } else {
+      if (response.data.resultCode === 10) {
+        dispatch(getCaptcha());
+      }
       let message =
         response.data.messages.length > 0
           ? response.data.messages[0]
@@ -66,4 +83,11 @@ export const logOutUser = () => async (dispatch) => {
       setAuthMeData(null, null, null, false);
     }
 };
+
+export const getCaptcha = () => async (dispatch) => {
+  const response = await secureAPI.getCaptchaUrl();
+    dispatch(getCaptchaUrlSuccess(response.data));
+};
+
+
 export default authReducer;

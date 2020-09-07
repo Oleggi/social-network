@@ -4,13 +4,19 @@
     width: 80px;
     height: 80px;
   }
+
+  .lds_ellipsis.start-app {
+    left: 50%;
+    top: 50%;
+  }
+
   .lds_ellipsis div {
     position: absolute;
     top: 33px;
     width: 13px;
     height: 13px;
     border-radius: 50%;
-    background: linear-gradient(to right, rgb(133, 61, 216), rgb(137, 142, 199));
+    background-color: rgb(175, 192, 206);
     animation-timing-function: cubic-bezier(0, 1, 1, 0);
   }
   .lds_ellipsis div:nth-child(1) {

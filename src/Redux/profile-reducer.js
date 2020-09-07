@@ -1,3 +1,4 @@
+import { stopSubmit } from "redux-form";
 import { profileAPI } from "../components/API/api";
 const ADD_POST = "social-network/profile/ADD_POST";
 const DELETE_POST = "social-network/profile/DELETE_POST";
@@ -8,12 +9,16 @@ const SET_CURRENT_PAGE = "social-network/profile/SET_CURRENT_PAGE";
 const CHECK_IS_FETCHING = "social-network/profile/CHECK_IS_FETCHING";
 const SET_PROFILE = "social-network/profile/SET_PROFILE";
 const GET_STATUS = "social-network/profile/GET_STATUS";
+const SET_USER_PHOTO_COMPLETE = "social-network/profile/SET_USER_PHOTO_COMPLETE";
+const SET_IS_PROFILE_UPDATING = "social-network/profile/SET_IS_PROFILE_UPDATING";
+
 
 let initialState = {
   totalPostsCount: 20,
   pageSize: 5,
   currentPage: 1,
   profile: null,
+  isProfileInfoUpdating: "",
   status: "",
   posts: [
     {id: 1,
@@ -76,6 +81,15 @@ const profileReducer = (state = initialState, action) => {
         ...state,
         status: action.statusData,
       };
+    case SET_USER_PHOTO_COMPLETE:
+      return {
+        ...state, profile: {...state.profile, photos: action.photos}
+      }
+      case SET_IS_PROFILE_UPDATING:
+        return {
+          ...state, 
+          isProfileInfoUpdating: action.isUpdating
+        }
     default:
       return state;
   }
@@ -130,6 +144,20 @@ export const getStatus = (statusData) => {
   };
 };
 
+export const setUserPhotoComplete = (photos) => {
+  return {
+    type: SET_USER_PHOTO_COMPLETE,
+    photos
+  }
+} 
+
+export const setProfileUpdatingStatus = (status) => {
+  return {
+    type: SET_IS_PROFILE_UPDATING,
+    isUpdating: status 
+  }
+}
+
 export const getProfileData = (id) => {
   return async (dispatch) => {
     const data = await profileAPI.getProfile(id);
@@ -152,5 +180,34 @@ export const setUserStatus = (statusData) => {
       }
   };
 };
+
+export const setUserPhoto = (userPhoto) => {
+  return async (dispatch) => {
+    const response = await profileAPI.setPhoto(userPhoto);
+    if (response.data.resultCode === 0) {
+      dispatch(setUserPhotoComplete(response.data.data.photos));
+    }  
+  }
+}
+
+
+export const setProfileInfo = (profileData) => {
+  return async (dispatch, getState) => {
+    dispatch(setProfileUpdatingStatus("fetching"));
+    const userId = getState().auth.id;
+    const response = await profileAPI.setUserInfo(profileData);
+    if (response.data.resultCode === 0) {
+     dispatch(getProfileData(userId));
+     dispatch(setProfileUpdatingStatus("success"));
+    } else {
+      dispatch(setProfileUpdatingStatus("error"));
+      let message =
+        response.data.messages.length > 0
+          ? response.data.messages[0]
+          : "Something went wrong";
+      dispatch(stopSubmit("edit-info", { _error: message }));
+    }
+  } 
+}
 
 export default profileReducer;

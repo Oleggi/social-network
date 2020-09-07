@@ -16,8 +16,6 @@ const Paginator = ({totalItemsCount, pageSize,currentPage, portionSize, onPageCh
   let rightSingleArrow = ">";
   let rightDoubleArrow = ">>";
   let leftDoubleArrow = "<<";
-  console.log(portionsCount);
-  console.log(portionNumber);
 
   return (
     <div className={s.pages_wrapper}>
