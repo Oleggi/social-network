@@ -6,6 +6,7 @@ const instance = axios.create({
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Credentials': true,
     "API-KEY": "69c2d3f8-422e-47c6-92c0-73bcd72b1d10",
+    'Access-Control-Allow-Methods' : 'GET,PUT,POST,DELETE,PATCH,OPTIONS'
   },
 });
 
