@@ -1,8 +1,14 @@
-.info {
-    margin: 2rem;
+.container {
+    display: flex;
+}
+
+.profileInfo {
+    margin-left: 5rem;
 }
 
 .status {
     color: rgb(31, 46, 177);
     font-size: 1.9rem;
 }
+
+/*Photo input with type 'file'*/

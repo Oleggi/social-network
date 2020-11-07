@@ -3,7 +3,7 @@ import s from "./Preloader.module.css";
 
 const Preloader = (props) => {
     return (
-        <div className={s.lds_ellipsis}><div></div><div></div><div></div><div></div></div>
+        <div className={s.lds_roller}><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
     )
 }
 

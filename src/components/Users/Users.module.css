@@ -1,12 +1,7 @@
-.container button {
-    border: 0.1rem gray solid;
-    background-color: white;
-    margin-left: .6rem;
-    cursor: pointer;
-}
-
 .user_item {
-    background-color: rgb(231, 241, 245);
+    display: flex;
+    flex-wrap: nowrap;
+    background-color: rgb(246, 250, 252);
     padding: 2rem;
     margin-top: 3rem;
 }
@@ -16,12 +11,20 @@
     height: 8rem;
 }
 
-.status {
-    color: lightcoral;
+.container button {
+    border: 0.1rem gray solid;
+    background-color: white;
+    margin-left: .6rem;
+    cursor: pointer;
 }
 
 
-/* Pages */
+.user_name {
+    padding-left: 1rem;
+}
+
+
+/* Pagination */
 .pages_container div {
     display: inline-block;
     padding: .5rem;

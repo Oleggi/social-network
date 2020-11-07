@@ -2,6 +2,7 @@ import React from "react";
 import s from "./Users.module.css";
 import { NavLink } from "react-router-dom";
 import Paginator from "../common/Paginator/Paginator";
+import imgPlaceholder from "../../assets/images/avatar-placeholder.png";
 
 const Users = (props) => {
   return (
@@ -17,10 +18,10 @@ const Users = (props) => {
         <div key={u.id} className={s.user_item}>
           <NavLink to={"/profile/" + u.id}>
             <span>
-              <img src={u.photos.small} alt="" />
+              {u.photos.small ? <img src={u.photos.small} alt="" /> : <img src={imgPlaceholder} alt="" />}
             </span>
           </NavLink>
-          <span>{u.name}</span>
+          <span className={s.user_name}>{u.name}</span>
           {u.followed ? (
             <button 
               disabled={props.isFollowingActive.some(id => id === u.id)}

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import s from "./ProfileInfo.module.css";
-import Background from "./Background/Background";
 import ProfileAvatar from "./ProfileAvatar/ProfileAvatar";
 import Preloader from "../../common/preloader/Preloader";
 import ProfileStatusForTesting from "./ProfileStatusForTesting";
@@ -23,10 +22,13 @@ const ProfileInfo = (props) => {
 
     return (
       <>
-        <Background />
+      <div className={s.container}>
+      <div className={s.avatar}>
         <ProfileAvatar profileAvatar={props.profile.photos.large} />
-        {props.isOwner && <input onChange={props.onPhotoSelectedChange} type="file"/>} 
-        {props.isProfileInfoUpdating === "fetching"  ? <div><Preloader /></div> : 
+      {props.isOwner && <div className={s.input_photo}><input onChange={props.onPhotoSelectedChange} type="file"/></div>} 
+      </div>
+      <div className={s.profileInfo}>
+      {props.isProfileInfoUpdating === "fetching"  ? <div><Preloader /></div> : 
         <div className={s.info}>
         <ProfileStatusForTesting
           status={props.status}
@@ -36,6 +38,8 @@ const ProfileInfo = (props) => {
         {editMode? <ProfileDataForm editModeOff={() => {setEditMode(false)}} profile={props.profile} initialValues={props.profile} onSubmit={onSubmit}/> : <ProfileInfoData toEditMode={() => {setEditMode(true)}} isOwner={props.isOwner} profile={props.profile}/>} 
         </div>
         }
+      </div>
+      </div>
       </>
     );
   }

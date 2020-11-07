@@ -25,13 +25,13 @@ class ProfileInfoContainer extends React.Component {
   }
   componentDidMount() {
     this.refreshUserInfo();
-      }
+      };
 
   componentDidUpdate(prevProps, prevState, snapshot) {
     if(this.props.match.params.userId !== prevProps.match.params.userId) {
       this.refreshUserInfo();
     } 
-  }
+  };
 
   onPhotoSelectedChange = (e) => {
     if (e.target.files.length) {
