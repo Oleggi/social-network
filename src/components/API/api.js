@@ -4,7 +4,7 @@ const instance = axios.create({
   baseURL: "https://social-network.samuraijs.com/api/1.0/",
   headers: {
     "API-KEY": "0301776c-06d0-4380-a26b-7f129554ed6f",
-    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Origin": "https://oleggi.github.io/social-network/",
     "Access-Control-Allow-Credentials": "true",
     "Access-Control-Allow-Methods": "GET,HEAD,OPTIONS,POST,PUT",
     "Access-Control-Allow-Headers": "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers"
